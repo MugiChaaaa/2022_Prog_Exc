@@ -66,33 +66,13 @@ void data_selection_sort(struct student f[], int line)
         for (int j = i + 1; j < line; ++j)
             if(f[max].score < f[j].score)
                 max=j;
+            else if(f[max].score == f[j].score && f[max].num > f[j].num) //成績が同じだったら、学籍番号の低い順に並び替える
+                //2つ目の条件はmaxと書いているが、実はminimumヲ示している。
+                max=j;
         struct student temp; //仮の(交換用の)構造体を宣言
         temp = f[i]; //交換
         f[i] = f[max];
         f[max] = temp;
-    }
-
-    // 成績が同じ時は学籍番号昇順に並び替える。
-    for (int n = 0; n < line; ++n)
-    {
-        if ( f[n].score == f[n+1].score )
-        {
-            int count = 0;
-            while( f[n].score == f[n+count].score )
-                count++;
-            int min;
-            for (int i = 0; i < count-1; ++i) //一番大きい値が入っている順番を覚えておいて、その値を焦点の値と換える
-            {
-                min = n; // 焦点はnから始まる
-                for (int j = i + 1; j < count; ++j)
-                    if(f[min].num > f[n+j].num) //nからj番目の数と比較
-                        min=n+j;
-                struct student temp; //仮の(交換用の)構造体を宣言
-                temp = f[n]; //交換
-                f[n] = f[min];
-                f[min] = temp;
-            }
-        }
     }
     printf("Sort Completed\n");
 }
@@ -100,3 +80,30 @@ void data_selection_sort(struct student f[], int line)
  * 単純選択整列というのは、最初から調べて、一番大きい値を一番最初に置く整列法。
  * 最後に比較する値が2つしかないと、1回だけでいいので、全体の比較回数は全体行数-1
  * */
+
+
+
+/*もっと非効率的な方法。ただ, 一度ソートされているデータならかなり役に立つかも。
+/ひお成績が同じ時は学籍番号昇順に並び替える。
+for (int n = 0; n < line; ++n)
+{
+    if ( f[n].score == f[n+1].score )
+    {
+        int count = 0;
+        while( f[n].score == f[n+count].score )
+            count++;
+        int min;
+        for (int i = 0; i < count-1; ++i) //一番大きい値が入っている順番を覚えておいて、その値を焦点の値と換える
+        {
+            min = n; // 焦点はnから始まる
+            for (int j = i + 1; j < count; ++j)
+                if (f[min].num > f[n+j].num) //nからj番目の数と比較
+                    min=n+j;
+            struct student temp; //仮の(交換用の)構造体を宣言
+            temp = f[n]; //交換
+            f[n] = f[min];
+            f[min] = temp;
+        }
+    }
+}
+ */
