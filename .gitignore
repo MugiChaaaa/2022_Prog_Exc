@@ -1,0 +1,9 @@
+# exclude all
+*
+
+# include directory
+!*/
+
+#include c file
+!2164901*.c
+2164901_al*.c
