@@ -94,6 +94,7 @@ void data_selection_sort(struct student f[], int line)
             }
         }
     }
+    printf("Sort Completed\n");
 }
 /*
  * 単純選択整列というのは、最初から調べて、一番大きい値を一番最初に置く整列法。
